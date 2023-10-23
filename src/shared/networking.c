@@ -19,7 +19,7 @@ int init_networking() {
 }
 
 address_t make_address(const char *ipv4, uint16_t port) {
-  struct sockaddr_in addr = {};
+  struct sockaddr_in addr = {0};
   addr.sin_family = AF_INET;
   addr.sin_port = htons(port);
   addr.sin_addr.s_addr = inet_addr(ipv4);

@@ -19,7 +19,7 @@ int main() {
     return 2;
   }
 
-  address_t client_addr = {};
+  address_t client_addr = {0};
   socket_t client_sock = wait_for_tcp_client_socket(sock, &client_addr);
   if (client_sock < 0) {
     perror("Couldn't accept a client");
