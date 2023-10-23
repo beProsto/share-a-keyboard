@@ -1,17 +1,21 @@
 
+#include <share-a-keyb/getch.h>
 #include <share-a-keyb/networking.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 #define DESIRED_ADDRESS "0.0.0.0"
 #define BUFSIZE 512
 
-int main() {
+int main(int argc, char **argv) {
+  // assume the other argument is the port we want
+  const uint16_t chosen_port = ((argc > 1) ? atoi(argv[1]) : DESIRED_PORT);
+
   if (init_networking() != 0) {
     perror("Init failed");
     return 1;
   }
 
-  address_t addr = make_address(DESIRED_ADDRESS, DESIRED_PORT);
+  address_t addr = make_address(DESIRED_ADDRESS, chosen_port);
 
   socket_t sock = make_tcp_server_socket(&addr);
   if (sock < 0) {
@@ -28,30 +32,15 @@ int main() {
 
   printf("Client with IP %s connected\n", inet_ntoa(client_addr.sin_addr));
 
-  if (send(client_sock, "hello", 1, 0) == -1) {
-    perror("Send error");
-    close(client_sock);
-    close(sock);
-    return EXIT_FAILURE;
+  while (true) {
+    int temp_arr[1] = {getche()};
+    if (send(client_sock, temp_arr, sizeof(temp_arr), 0) < 0) {
+      perror("Send error");
+      close(client_sock);
+      close(sock);
+      return 4;
+    }
   }
-
-  // char buf[BUFSIZE];
-  // ssize_t readden = recv(sock, buf, BUFSIZE, 0);
-  // if (readden < 0) {
-  //   perror("Receive error");
-  //   close(client_sock);
-  //   close(sock);
-  //   return EXIT_FAILURE;
-  // } else if (readden == 0) {
-  //   fprintf(stderr, "Client orderly shut down the connection.\n");
-  // } else if (readden > 0) {
-  //   if (readden < BUFSIZE) {
-  //     fprintf(stderr, "Received less bytes (%zd) then requested (%d).\n",
-  //             readden, BUFSIZE);
-  //   }
-
-  //   write(STDOUT_FILENO, buf, readden);
-  // }
 
   close(client_sock);
   close(sock);
