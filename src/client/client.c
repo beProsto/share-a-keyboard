@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
            temp_arr[0]);
 
 #ifdef WIN32
-    INPUT inputs[1] = {};
+    INPUT inputs[1] = {0};
 
     inputs[0].type = INPUT_KEYBOARD;
     inputs[0].ki.wVk = temp_arr[0];
