@@ -54,8 +54,6 @@ int main() {
   // }
 
   close(client_sock);
-  while (getchar())
-    ;
   close(sock);
   return 0;
 }
