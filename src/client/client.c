@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     INPUT inputs[1] = {0};
 
     inputs[0].type = INPUT_KEYBOARD;
-    inputs[0].ki.wVk = temp_arr[0];
+    inputs[0].ki.wScan = temp_arr[0];
 
     UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
     if (uSent != ARRAYSIZE(inputs)) {
