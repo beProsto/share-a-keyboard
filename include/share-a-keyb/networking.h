@@ -1,19 +1,29 @@
 #pragma once
 
-#include <arpa/inet.h>
+#ifndef WIN32
+    #include <arpa/inet.h>
+    #include <sys/types.h>
+    #include <netinet/in.h>
+    #include <sys/socket.h>
+#else
+    #include <winsock2.h>
+#endif
+
 #include <stdint.h>
-#include <sys/types.h>
-#include <netinet/in.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
 #include <unistd.h>
 #include <stdbool.h>
 
 // These are to be used by the user (The API)
 typedef struct sockaddr_in address_t;
-typedef int socket_t;
+#ifndef WIN32
+    typedef int socket_t;
+#else
+    typedef int socklen_t;
+    typedef SOCKET socket_t;
+#endif
 
 int init_networking();
 address_t make_address(const char *ipv4, uint16_t port);

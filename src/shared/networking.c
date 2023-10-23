@@ -2,7 +2,21 @@
 
 // we need that for winapi support
 // returns 0 if succeeded
-int init_networking() { return 0; }
+int init_networking() { 
+  #ifndef WIN32
+    return 0;
+  #else
+    int iResult;
+    WSADATA wsaData;
+    // Initialize Winsock
+    iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+    if (iResult != 0) {
+        printf("WSAStartup failed: %d\n", iResult);
+        return 1;
+    }
+    return 0;
+  #endif 
+}
 
 address_t make_address(const char *ipv4, uint16_t port) {
   struct sockaddr_in addr = {};

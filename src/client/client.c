@@ -1,7 +1,5 @@
 #include <share-a-keyb/networking.h>
-#include <share-a-keyb/networking.h>
 #include <stdio.h>
-#include <sys/socket.h>
 
 #define DESIRED_ADDRESS "127.0.0.1"
 #define BUFSIZE 512
