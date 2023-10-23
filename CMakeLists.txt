@@ -4,25 +4,25 @@ project(
     share-a-keyb 
     VERSION 0.1
     DESCRIPTION "Share your keyboard between two PCs."
-    LANGUAGES CXX
+    LANGUAGES C
 )
 
 include_directories(include)
 
 file(GLOB_RECURSE src_shared
-	"include/*.hpp"
-	"src/shared/*.hpp"
-	"src/shared/*.cpp"
+	"include/*.h"
+	"src/shared/*.h"
+	"src/shared/*.c"
 )
 file(GLOB_RECURSE src_server
-	"include/*.hpp"
-	"src/server/*.hpp"
-	"src/server/*.cpp"
+	"include/*.h"
+	"src/server/*.h"
+	"src/server/*.c"
 )
 file(GLOB_RECURSE src_client
-	"include/*.hpp"
-	"src/client/*.hpp"
-	"src/client/*.cpp"
+	"include/*.h"
+	"src/client/*.h"
+	"src/client/*.c"
 )
 # string(RANDOM "UNIQUERANDOM" random_string 8 "0123456789ABCDEF")
 # message("Random String: ${random_string}")
