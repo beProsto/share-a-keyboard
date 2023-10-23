@@ -1,28 +1,27 @@
 #pragma once
 
 #ifndef WIN32
-    #include <arpa/inet.h>
-    #include <sys/types.h>
-    #include <netinet/in.h>
-    #include <sys/socket.h>
-    #include <unistd.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 #else
-    #include <winsock2.h>
+#include <winsock2.h>
 #endif
 
-#include <stdint.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 // These are to be used by the user (The API)
 typedef struct sockaddr_in address_t;
 #ifndef WIN32
-    typedef int socket_t;
+typedef int socket_t;
 #else
-    typedef int socklen_t;
-    typedef SOCKET socket_t;
+typedef int socklen_t;
+typedef SOCKET socket_t;
 #endif
 
 int init_networking();

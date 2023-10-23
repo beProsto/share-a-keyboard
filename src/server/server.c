@@ -1,6 +1,6 @@
 
-#include <stdio.h>
 #include <share-a-keyb/networking.h>
+#include <stdio.h>
 
 #define DESIRED_ADDRESS "0.0.0.0"
 #define BUFSIZE 512
@@ -54,7 +54,8 @@ int main() {
   // }
 
   close(client_sock);
-  while(getchar());
+  while (getchar())
+    ;
   close(sock);
   return 0;
 }
