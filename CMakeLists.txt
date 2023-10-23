@@ -9,6 +9,10 @@ project(
 
 include_directories(include)
 
+if(WIN32)
+  link_libraries(wsock32 ws2_32)
+endif()
+
 file(GLOB_RECURSE src_shared
 	"include/*.h"
 	"src/shared/*.h"
@@ -24,8 +28,6 @@ file(GLOB_RECURSE src_client
 	"src/client/*.h"
 	"src/client/*.c"
 )
-# string(RANDOM "UNIQUERANDOM" random_string 8 "0123456789ABCDEF")
-# message("Random String: ${random_string}")
 
 # Generate a random port and store it in a variable
 execute_process(COMMAND ${CMAKE_COMMAND} -E env python ./cmake/port-gen.py OUTPUT_VARIABLE port OUTPUT_STRIP_TRAILING_WHITESPACE)
