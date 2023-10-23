@@ -5,6 +5,7 @@
     #include <sys/types.h>
     #include <netinet/in.h>
     #include <sys/socket.h>
+    #include <unistd.h>
 #else
     #include <winsock2.h>
 #endif
@@ -13,7 +14,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdbool.h>
 
 // These are to be used by the user (The API)
