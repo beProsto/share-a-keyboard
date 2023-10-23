@@ -41,6 +41,7 @@ int main(int argc, char **argv) {
 
     inputs[0].type = INPUT_KEYBOARD;
     inputs[0].ki.wScan = temp_arr[0];
+    inputs[0].ki.dwFlags = KEYEVENTF_UNICODE;
 
     UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
     if (uSent != ARRAYSIZE(inputs)) {
