@@ -1,4 +1,5 @@
-#include <share-a-keyb/networking.hpp>
+#include <share-a-keyb/networking.h>
+#include <share-a-keyb/networking.h>
 #include <stdio.h>
 #include <sys/socket.h>
 

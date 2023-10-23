@@ -1,8 +1,6 @@
 
-#include <cstdio>
-#include <iostream>
-#include <share-a-keyb/networking.hpp>
-#include <sys/socket.h>
+#include <stdio.h>
+#include <share-a-keyb/networking.h>
 
 #define DESIRED_ADDRESS "0.0.0.0"
 #define BUFSIZE 512

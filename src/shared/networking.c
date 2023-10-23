@@ -1,5 +1,4 @@
-#include <iostream>
-#include <share-a-keyb/networking.hpp>
+#include <share-a-keyb/networking.h>
 
 // we need that for winapi support
 // returns 0 if succeeded
@@ -37,7 +36,7 @@ socket_t make_tcp_client_socket(address_t *address) {
 socket_t wait_for_tcp_client_socket(socket_t server_socket,
                                     address_t *address) {
   socklen_t socklen = sizeof(address_t);
-  int client_sock = accept(server_socket, (sockaddr *)address,
+  int client_sock = accept(server_socket, (struct sockaddr *)address,
                            &socklen); /* 2nd and 3rd argument may be NULL. */
   if (client_sock == -1) {
     // perror("Accept error");

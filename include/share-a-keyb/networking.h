@@ -1,13 +1,15 @@
 #pragma once
 
 #include <arpa/inet.h>
-#include <cstdint>
+#include <stdint.h>
+#include <sys/types.h>
 #include <netinet/in.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 // These are to be used by the user (The API)
 typedef struct sockaddr_in address_t;
