@@ -53,7 +53,8 @@ int main() {
   //   write(STDOUT_FILENO, buf, readden);
   // }
 
-  // close(client_sock);
+  close(client_sock);
+  while(getchar());
   close(sock);
   return 0;
 }

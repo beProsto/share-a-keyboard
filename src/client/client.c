@@ -25,10 +25,10 @@ int main() {
 
     int received_size = recv(sock, &pressed, 1, 0);
     if (received_size == 0) {
-      printf("connection ended");
+      printf("connection ended\n");
       return 3;
     } else if (received_size < 0) {
-      printf("connection error");
+      printf("connection error\n");
       return 4;
     }
 
