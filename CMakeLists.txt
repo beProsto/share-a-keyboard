@@ -24,6 +24,13 @@ file(GLOB_RECURSE src_client
 	"src/client/*.hpp"
 	"src/client/*.cpp"
 )
+# string(RANDOM "UNIQUERANDOM" random_string 8 "0123456789ABCDEF")
+# message("Random String: ${random_string}")
+
+# Generate a random port and store it in a variable
+execute_process(COMMAND ${CMAKE_COMMAND} -E env python ./cmake/port-gen.py OUTPUT_VARIABLE port OUTPUT_STRIP_TRAILING_WHITESPACE)
+add_compile_definitions(DESIRED_PORT=${port})
+message("Randomized port: [${port}]\n")
 
 add_executable(server ${src_shared} ${src_server})
 
