@@ -36,15 +36,35 @@ int main(int argc, char **argv) {
     printf("%d Received Key Press: [%d] = '%c'\n", received_size, temp_arr[0],
            temp_arr[0]);
 
-#ifdef WIN32
-    INPUT inputs[1] = {0};
+#ifndef WIN32
+    // TODO: Handle linux keyboard simulation
+#else 
+    // prepare the caught input for windows
+    int caughtKey = temp_arr[0];
+    
+    INPUT inputs[3] = {0};
+    uint8_t strokes = 1;
+    for(int i = 0; i < (sizeof(inputs)/sizeof(INPUT)); i++) {
+      inputs[i].type = INPUT_KEYBOARD;
+    }
 
-    inputs[0].type = INPUT_KEYBOARD;
-    inputs[0].ki.wScan = temp_arr[0];
-    inputs[0].ki.dwFlags = KEYEVENTF_UNICODE;
+    if(caughtKey == 127) { // backspace
+      inputs[0].ki.wVk = VK_BACK;
+    }
+    else if(caughtKey == 23) { // ctrl+backspace
+      strokes = 3;
+      inputs[0].ki.wVk = VK_CONTROL;
+      inputs[1].ki.wVk = VK_BACK;
+      inputs[2].ki.wVk = VK_CONTROL;
+      inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
+    }
+    else {
+      inputs[0].ki.wScan = caughtKey;
+      inputs[0].ki.dwFlags = KEYEVENTF_UNICODE;
+    }
 
-    UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
-    if (uSent != ARRAYSIZE(inputs)) {
+    UINT uSent = SendInput(strokes, inputs, sizeof(INPUT));
+    if (uSent != strokes) {
       printf("For some reason didn't send the input\n");
     }
 #endif
