@@ -58,6 +58,9 @@ int main(int argc, char **argv) {
       inputs[2].ki.wVk = VK_CONTROL;
       inputs[2].ki.dwFlags = KEYEVENTF_KEYUP;
     }
+    else if(caughtKey == 10) { // enter
+      inputs[0].ki.wVk = VK_RETURN;
+    }
     else {
       inputs[0].ki.wScan = caughtKey;
       inputs[0].ki.dwFlags = KEYEVENTF_UNICODE;
