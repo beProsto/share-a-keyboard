@@ -34,6 +34,9 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E env python ./cmake/port-gen.py OUTPU
 add_compile_definitions(DESIRED_PORT=${port})
 message("Randomized port: [${port}]\n")
 
-add_executable(server ${src_shared} ${src_server})
-
-add_executable(client ${src_shared} ${src_client})
+if(NOT ${TO_BUILD} STREQUAL "CLT")
+	add_executable(server ${src_shared} ${src_server})
+endif()
+if(NOT ${TO_BUILD} STREQUAL "SRV")
+	add_executable(client ${src_shared} ${src_client})
+endif()
