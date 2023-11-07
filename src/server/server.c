@@ -5,12 +5,37 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+int find_keyboard_event_name(char *evname) {
+  // check which input device is a keyboard
+  FILE *devicesfile = fopen("/proc/bus/input/devices", "r");
+  if (devicesfile == NULL) {
+    printf("Device list cannot be accessed\n");
+    return -1;
+  }
+
+  // go through each line checking for a reference to the keyboard
+  char devslinebuff[512] = {0};
+  size_t devslinebuffsize = 512;
+  char *linebuff = devslinebuff;
+  const char *comparison = "H: Handlers=sysrq kbd ";
+  const size_t comparison_len = strlen(comparison);
+  while (getline(&linebuff, &devslinebuffsize, devicesfile)) {
+    // printf("Found %s\n", linebuff);
+    if (strncmp(linebuff, comparison, comparison_len) == 0) {
+      char junk[64];
+      sscanf(linebuff, "H: Handlers=sysrq kbd %s %s", junk, evname);
+      return 0;
+    }
+  }
+  return -2;
+}
 
 #define DESIRED_ADDRESS "0.0.0.0"
 #define BUFSIZE 512
 
 void handler(int id) { return; }
-
 int main(int argc, char **argv) {
   signal(SIGINT, handler);
   signal(SIGTSTP, handler);
@@ -22,8 +47,19 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  // find out which input event is the keyboard
+  const char *evfnamebase = "/dev/input/";
+  const size_t evfnamebaselen = strlen(evfnamebase);
+  char evfname[64] = {0};
+  strcpy(evfname, evfnamebase);
+  if (find_keyboard_event_name(evfname + evfnamebaselen) < 0) {
+    printf("Couldn't find a keyboard device.\n");
+    return 2;
+  }
+
   // for now we want the file to just load a specific event
-  int evfile = open("/dev/input/event3", O_RDONLY);
+  // file: "/dev/input/event3" for example
+  int evfile = open(evfname, O_RDONLY);
   if (evfile < 0) {
     printf("Keyboard device cannot be accessed; You may need to run as root\n");
     return 1;
