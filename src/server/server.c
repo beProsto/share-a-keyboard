@@ -87,16 +87,12 @@ int main(int argc, char **argv) {
       keyinputinfo.eventtype = keyinputs[1].value;
       keyinputinfo.scancode = keyinputs[0].value;
 
-      //  if (zeroed) {
-      //   if (send(client_sock, &curr_input.value, sizeof(unsigned int), 0) <
-      //   0) {
-      //     perror("Send error");
-      //     close(client_sock);
-      //     close(sock);
-      //     return 4;
-      //   }
-      // }
-
+      if (send(client_sock, &keyinputinfo, sizeof(keyinputinfo), 0) < 0) {
+        perror("Send error");
+        close(client_sock);
+        close(sock);
+        return 4;
+      }
     } else if (g == 0) {
       printf("Zero Received\n");
     } else {
