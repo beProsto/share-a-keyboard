@@ -53,7 +53,7 @@ socket_t wait_for_tcp_client_socket(socket_t server_socket,
   int client_sock = accept(server_socket, (struct sockaddr *)address,
                            &socklen); /* 2nd and 3rd argument may be NULL. */
   if (client_sock == -1) {
-    // perror("Accept error");
+    // printf("Accept error");
     close(server_socket);
     return -1;
   }
@@ -69,12 +69,12 @@ socket_t _make_tcp_socket() {
 }
 int _init_tcp_server(socket_t socket, address_t *address) {
   if (bind(socket, (struct sockaddr *)address, sizeof(address_t)) == -1) {
-    // perror("Bind error");
+    // printf("Bind error");
     close(socket);
     return -1;
   }
   if (listen(socket, 1) == -1) {
-    // perror("Listen error");
+    // printf("Listen error");
     close(socket);
     return -2;
   }
@@ -82,7 +82,7 @@ int _init_tcp_server(socket_t socket, address_t *address) {
 }
 int _init_tcp_client(socket_t socket, address_t *address) {
   if (connect(socket, (struct sockaddr *)address, sizeof(address_t)) == -1) {
-    // perror("Connection error");
+    // printf("Connection error");
     close(socket);
     return -1;
   }

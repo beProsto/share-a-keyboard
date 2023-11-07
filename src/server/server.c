@@ -18,27 +18,28 @@ int main(int argc, char **argv) {
   const uint16_t chosen_port = ((argc > 1) ? atoi(argv[1]) : DESIRED_PORT);
 
   if (init_networking() != 0) {
-    perror("Init failed");
+    printf("Init failed\n");
     return 1;
   }
 
   // for now we want the file to just load a specific event
   int evfile = open("/dev/input/event3", O_RDONLY);
-  // int flags = fcntl(evfile, F_GETFL, 0);
-  // fcntl(evfile, F_SETFL, flags | O_NONBLOCK);
-
+  if (evfile < 0) {
+    printf("Keyboard device cannot be accessed; You may need to run as root\n");
+    return 1;
+  }
   address_t addr = make_address(DESIRED_ADDRESS, chosen_port);
 
   socket_t sock = make_tcp_server_socket(&addr);
   if (sock < 0) {
-    perror("Server failed to initialise");
+    printf("Server failed to initialise");
     return 2;
   }
 
   address_t client_addr = {0};
   socket_t client_sock = wait_for_tcp_client_socket(sock, &client_addr);
   if (client_sock < 0) {
-    perror("Couldn't accept a client");
+    printf("Couldn't accept a client");
     return 3;
   }
 
@@ -91,7 +92,7 @@ int main(int argc, char **argv) {
       keyinputinfo.scancode = keyinputs[0].value;
 
       if (send(client_sock, &keyinputinfo, sizeof(keyinputinfo), 0) < 0) {
-        perror("Send error");
+        printf("Send error");
         close(client_sock);
         close(sock);
         return 4;

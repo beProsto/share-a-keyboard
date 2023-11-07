@@ -1,5 +1,5 @@
-#include <share-a-keyb/networking.h>
 #include <share-a-keyb/keyboard.h>
+#include <share-a-keyb/networking.h>
 
 #define DESIRED_ADDRESS "127.0.0.1"
 #define BUFSIZE 512
@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   const uint16_t chosen_port = ((argc > 2) ? atoi(argv[2]) : DESIRED_PORT);
 
   if (init_networking() != 0) {
-    perror("Init failed");
+    printf("Init failed");
     return 1;
   }
 
@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
   socket_t sock = make_tcp_client_socket(&addr);
   if (sock < 0) {
-    perror("Client failed to connect");
+    printf("Client failed to connect");
     return 2;
   }
 
@@ -33,7 +33,11 @@ int main(int argc, char **argv) {
       return 4;
     }
 
-    printf("%s: %d\n", (keyinputinfo.eventtype == 0 ? "KeyUp" : (keyinputinfo.eventtype == 1 ? "KeyDown" : "KeyHold")), keyinputinfo.scancode);
+    printf("%s: %d\n",
+           (keyinputinfo.eventtype == 0
+                ? "KeyUp"
+                : (keyinputinfo.eventtype == 1 ? "KeyDown" : "KeyHold")),
+           keyinputinfo.scancode);
 
     simulate_keyboard_input(keyinputinfo);
   }
