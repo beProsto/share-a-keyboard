@@ -3,9 +3,11 @@
 #ifndef WIN32
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 
 #else
-#include <conio.h>
+#include <winuser.h>
+
 #endif
 
 // eventtype;

@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <share-a-keyb/keyboard.h>
 #include <share-a-keyb/networking.h>
-#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
