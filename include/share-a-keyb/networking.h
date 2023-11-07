@@ -7,8 +7,10 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+
 #else
 #include <winsock2.h>
+
 #endif
 
 #include <stdbool.h>

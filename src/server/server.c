@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include <share-a-keyb/keyboard.h>
 #include <share-a-keyb/networking.h>
@@ -57,7 +56,7 @@ int main(int argc, char **argv) {
   struct key_input_event keyinputs[3] = {0};
   const size_t keyinputs_size = sizeof(struct key_input_event) * 3;
 
-  struct key_input_info keyinputinfo = {0};
+  key_input_info_t keyinputinfo = {0};
 
   while (true) {
     if ((g = read(evfile, keyinputs, keyinputs_size)) > 0) {
