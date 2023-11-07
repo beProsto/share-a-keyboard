@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <share-a-keyb/keyboard.h>
 #include <share-a-keyb/networking.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -10,7 +11,11 @@
 #define DESIRED_ADDRESS "0.0.0.0"
 #define BUFSIZE 512
 
+void handler(int id) { return; }
+
 int main(int argc, char **argv) {
+  signal(SIGINT, handler);
+  signal(SIGTSTP, handler);
   // assume the other argument is the port we want
   const uint16_t chosen_port = ((argc > 1) ? atoi(argv[1]) : DESIRED_PORT);
 
