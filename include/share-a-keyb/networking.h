@@ -1,5 +1,7 @@
 #pragma once
 
+#include "pch.h"
+
 #ifndef WIN32
 #include <arpa/inet.h>
 #include <fcntl.h>
@@ -12,11 +14,6 @@
 #include <winsock2.h>
 
 #endif
-
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 // These are to be used by the user (The API)
 typedef struct sockaddr_in address_t;

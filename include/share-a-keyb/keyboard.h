@@ -1,20 +1,15 @@
 #pragma once
 
+#include "pch.h"
+
 #ifndef WIN32
-#include <stdio.h>
-#include <unistd.h>
 #include <signal.h>
+#include <unistd.h>
 
 #else
 #include <windows.h>
 
 #endif
-
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 // eventtype;
 //  0 - keyup
