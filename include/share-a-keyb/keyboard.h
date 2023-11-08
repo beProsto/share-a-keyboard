@@ -3,6 +3,7 @@
 #include "pch.h"
 
 #ifndef WIN32
+#include <fcntl.h>
 #include <signal.h>
 #include <unistd.h>
 
@@ -25,3 +26,12 @@ typedef struct key_input_info key_input_info_t;
 
 // used by the client to simulate key presses
 int simulate_keyboard_input(key_input_info_t input_info);
+
+// used by the server to process key presses
+struct keyboard_event;
+typedef struct keyboard_event keyboard_event_t;
+
+keyboard_event_t *init_keyboard_event();
+
+int read_keyboard_input(keyboard_event_t *keybdev,
+                        key_input_info_t *input_info);
