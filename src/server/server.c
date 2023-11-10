@@ -53,9 +53,12 @@ int main(int argc, char **argv) {
 
   while (true) {
     if (read_keyboard_input(kevent, &keyinputinfo) < 0) {
-      printf("Reading the keyboard input failed!\n");
-      return -1;
+      // printf("Invalid keyboard input!\n");
+      continue;
+      // return -1;
     }
+
+    // printf("[%d](%d)\n", keyinputinfo.eventtype, keyinputinfo.scancode);
 
     if (send(client_sock, &keyinputinfo, sizeof(keyinputinfo), 0) < 0) {
       printf("Connection broken\n");
