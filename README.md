@@ -30,5 +30,5 @@ Now you may realise that you cannot close the server via linux signals (ctrl+c o
 Features (bold if implemented, italic if to-be implemented):
 - **Linux Server**
 - *Linux Client*
-- *Windows Server*
+- **Windows Server**
 - **Windows Client**
