@@ -1,6 +1,7 @@
 #pragma once
 
 #include "pch.h"
+#include <stdint.h>
 
 #ifndef WIN32
 #include <fcntl.h>
@@ -19,8 +20,8 @@
 // scancode;
 //  system agnostic device (keyboard) scancode
 struct key_input_info {
-  unsigned int eventtype;
-  unsigned int scancode;
+  uint8_t eventtype;
+  uint8_t scancode;
 };
 typedef struct key_input_info key_input_info_t;
 
