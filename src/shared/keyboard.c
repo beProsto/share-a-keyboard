@@ -132,12 +132,6 @@ keyboard_event_t *init_keyboard_event() {
   return keybdev;
 
 #else
-  // Yeah, as you may have figured out - this app isn't written with windows as
-  // a server first in mind In fact, it was meant to serve a very specifc
-  // purpose of a linux server on my laptop and a windows client on my PC I'll
-  // try to do the best I can with the least effort and hopefully something at
-  // least half good will come of it :D
-
   keyboard_event_t *keyb = malloc(sizeof(keyboard_event_t));
   memset(keyb, 0, sizeof(keyboard_event_t));
 
