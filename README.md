@@ -26,9 +26,4 @@ The client receives the keystrokes from the server and emulates them on the mach
 
 Now you may realise that you cannot close the server via linux signals (ctrl+c or ctrl+z). This is fully intentional behaviour. These keystrokes are often used and needed in programming (which is what I need this keyboard for, after all), so I disabled their default behaviour. The connection is meant to be broken on the client's side; after that the server will quit.
 
-
-Features (bold if implemented, italic if to-be implemented):
-- **Linux Server**
-- *Linux Client*
-- **Windows Server**
-- **Windows Client**
+Works on both Linux and Windows. ^^
