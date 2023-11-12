@@ -5,6 +5,8 @@
 
 #ifndef WIN32
 #include <fcntl.h>
+#include <linux/input-event-codes.h>
+#include <linux/uinput.h>
 #include <signal.h>
 #include <unistd.h>
 
