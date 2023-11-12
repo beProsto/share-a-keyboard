@@ -9,6 +9,12 @@ int main(int argc, char **argv) {
   const char *chosen_address = ((argc > 1) ? argv[1] : DESIRED_ADDRESS);
   const uint16_t chosen_port = ((argc > 2) ? atoi(argv[2]) : DESIRED_PORT);
 
+  keyboard_event_writer_t *kevent = init_keyboard_event_writer();
+  if (kevent == NULL) {
+    printf("Keyboard init failed\n");
+    return 1;
+  }
+
   if (init_networking() != 0) {
     printf("Init failed");
     return 1;
@@ -39,7 +45,7 @@ int main(int argc, char **argv) {
                 : (keyinputinfo.eventtype == 1 ? "KeyDown" : "KeyHold")),
            keyinputinfo.scancode);
 
-    simulate_keyboard_input(keyinputinfo);
+    write_keyboard_input(kevent, keyinputinfo);
   }
   return 0;
 }

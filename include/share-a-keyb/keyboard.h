@@ -28,13 +28,19 @@ struct key_input_info {
 typedef struct key_input_info key_input_info_t;
 
 // used by the client to simulate key presses
-int simulate_keyboard_input(key_input_info_t input_info);
+struct keyboard_event_writer;
+typedef struct keyboard_event_writer keyboard_event_writer_t;
+
+keyboard_event_writer_t *init_keyboard_event_writer();
+
+int write_keyboard_input(keyboard_event_writer_t *keybdev,
+                         key_input_info_t input_info);
 
 // used by the server to process key presses
-struct keyboard_event;
-typedef struct keyboard_event keyboard_event_t;
+struct keyboard_event_reader;
+typedef struct keyboard_event_reader keyboard_event_reader_t;
 
-keyboard_event_t *init_keyboard_event();
+keyboard_event_reader_t *init_keyboard_event_reader();
 
-int read_keyboard_input(keyboard_event_t *keybdev,
+int read_keyboard_input(keyboard_event_reader_t *keybdev,
                         key_input_info_t *input_info);

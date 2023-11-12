@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   // assume the other argument is the port we want
   const uint16_t chosen_port = ((argc > 1) ? atoi(argv[1]) : DESIRED_PORT);
 
-  keyboard_event_t *kevent = init_keyboard_event();
+  keyboard_event_reader_t *kevent = init_keyboard_event_reader();
   if (kevent == NULL) {
     printf("Keyboard init failed\n");
     return 1;
