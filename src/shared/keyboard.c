@@ -197,7 +197,7 @@ void emit(int fd, int type, int code, int val) {
 
 #else
 struct keyboard_event_writer {
-  INPUT siminput;
+  uint8_t unused;
 };
 
 #endif
@@ -231,8 +231,6 @@ keyboard_event_writer_t *init_keyboard_event_writer() {
 #else
   keyboard_event_writer_t *keybdev = malloc(sizeof(keyboard_event_writer_t));
   memset(keybdev, 0, sizeof(keyboard_event_writer_t));
-  keybdev->siminput.type = INPUT_KEYBOARD;
-  keybdev->siminput.ki.dwFlags = KEYEVENTF_SCANCODE;
   return keybdev;
 #endif
 }
@@ -243,13 +241,17 @@ int write_keyboard_input(keyboard_event_writer_t *keybdev,
   emit(keybdev->fd, EV_KEY, input_info.scancode, input_info.eventtype);
   emit(keybdev->fd, EV_SYN, SYN_REPORT, 0);
 #else
-  keybdev->siminput.ki.wScan = input_info.scancode;
+  INPUT siminput = {0};
+  const uint8_t strokes = 1;
+  siminput.type = INPUT_KEYBOARD;
+  siminput.ki.dwFlags = KEYEVENTF_SCANCODE;
+  siminput.ki.wScan = input_info.scancode;
   if (input_info.eventtype == 0) {
-    keybdev->siminput.ki.dwFlags |= KEYEVENTF_KEYUP;
+    siminput.ki.dwFlags |= KEYEVENTF_KEYUP;
   }
 
-  uint32_t uSent = SendInput(1, &keybdev->siminput, sizeof(INPUT));
-  if (uSent != 1) {
+  uint32_t uSent = SendInput(strokes, &siminput, sizeof(INPUT));
+  if (uSent != strokes) {
     printf("For some reason didn't send the input\n");
     return 1;
   }
