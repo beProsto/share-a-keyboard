@@ -1,13 +1,14 @@
 #include <share-a-keyb/keyboard.h>
 #include <stdio.h>
 
-// struct key_input_device_event {
-//   struct timeval time;
-//   unsigned short evpart;
-//   unsigned short unused;
-//   unsigned int value;
-// }; // This struct is defined in <linux/input-event-codes.h> as input_event
-typedef struct input_event key_input_device_event_t;
+struct key_input_device_event {
+  struct timeval time;
+  unsigned short evpart;
+  unsigned short unused;
+  unsigned int value;
+}; // This struct is defined in <linux/input-event-codes.h> as input_event
+   // but it's naming scheme is weird just so it can be universal.
+typedef struct key_input_device_event key_input_device_event_t;
 
 struct keyboard_event_reader {
   int event_file_desc;
@@ -15,7 +16,6 @@ struct keyboard_event_reader {
 };
 
 const static size_t keyinputs_size = sizeof(key_input_device_event_t) * 3;
-
 
 keyboard_event_reader_t *init_keyboard_event_reader() {
   // check which input device is a keyboard
